@@ -7,16 +7,19 @@ import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import br.dev.flaviosf.org_alura.R
 import br.dev.flaviosf.org_alura.dao.ProductDao
+import br.dev.flaviosf.org_alura.databinding.ActivityProductListBinding
 import br.dev.flaviosf.org_alura.ui.adapter.ProductListAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ProductListActivity : AppCompatActivity() {
+
+    private val binding: ActivityProductListBinding by lazy { ActivityProductListBinding.inflate(layoutInflater) }
     private val dao = ProductDao()
     private val adapter : ProductListAdapter by lazy { ProductListAdapter(dao.getProducts()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_list)
+        setContentView(binding.root)
         setupRecyclerView()
         setupFab()
     }
@@ -27,8 +30,7 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     private fun setupFab() {
-        val fab: FloatingActionButton = findViewById(R.id.product_list_fab)
-        fab.setOnClickListener {
+        binding.productListFab.setOnClickListener {
             goToProductForm()
         }
     }
@@ -39,8 +41,7 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val recyclerProducts = findViewById<RecyclerView>(R.id.product_list_recycler)
-        recyclerProducts.adapter = adapter
+        binding.productListRecycler.adapter = adapter
     }
 
 }

@@ -7,22 +7,23 @@ import android.widget.Button
 import android.widget.EditText
 import br.dev.flaviosf.org_alura.R
 import br.dev.flaviosf.org_alura.dao.ProductDao
+import br.dev.flaviosf.org_alura.databinding.ActivityProductFormBinding
 import br.dev.flaviosf.org_alura.model.Product
 import java.math.BigDecimal
 
 class ProductFormActivity : AppCompatActivity() {
 
+    private val binding : ActivityProductFormBinding by lazy { ActivityProductFormBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_form)
+        setContentView(binding.root)
         setupSaveButton()
     }
 
     private fun setupSaveButton() {
-        val saveButton: Button = findViewById(R.id.product_form_save_button)
         val dao = ProductDao()
-
-        saveButton.setOnClickListener {
+        binding.productFormSaveButton.setOnClickListener {
             val newProduct = newProduct()
             dao.add(newProduct)
             finish()
@@ -30,18 +31,10 @@ class ProductFormActivity : AppCompatActivity() {
     }
 
     private fun newProduct(): Product {
-        val nameField: EditText = findViewById(R.id.product_form_name)
-        val name = nameField.text.toString()
-
-        val descriptionField: EditText = findViewById(R.id.product_form_description)
-        val description = descriptionField.text.toString()
-
-        val priceField: EditText = findViewById(R.id.product_form_price)
-        val price = priceField.text.toString()
-
+        val price = binding.productFormPrice.text.toString()
         return Product(
-            name = name,
-            description = description,
+            name = binding.productFormName.text.toString(),
+            description = binding.productFormDescription.text.toString(),
             price = if (price.isBlank()) BigDecimal.ZERO else BigDecimal(price)
         )
     }

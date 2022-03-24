@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">org-alura</string>
+    <string name="app_name">Orgs</string>
     <string name="fruit_salad">Salada de frutas</string>
     <string name="fruits">Laranja, manga e uva</string>
     <string name="price">19,99</string>
+    <string name="action_product_form">ActionProductForm</string>
 </resources>

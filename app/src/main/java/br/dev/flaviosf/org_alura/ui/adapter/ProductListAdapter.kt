@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import br.dev.flaviosf.org_alura.R
 import br.dev.flaviosf.org_alura.model.Product
 
-class ProductListAdapter(
-    private val productList: List<Product>
-) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
+class ProductListAdapter(products: List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
+
+    private val dataSet = products.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,16 +19,22 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
-        val product = productList[position]
+        val product = dataSet[position]
         holder.bind(product)
     }
 
-    override fun getItemCount(): Int = productList.size
+    override fun getItemCount(): Int = dataSet.size
+
+    fun update(products: List<Product>) {
+        dataSet.clear()
+        dataSet.addAll(products)
+        notifyDataSetChanged()
+    }
 
     class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name = itemView.findViewById<TextView>(R.id.name)
-        val description = itemView.findViewById<TextView>(R.id.description)
-        val price = itemView.findViewById<TextView>(R.id.price)
+        val name = itemView.findViewById<TextView>(R.id.item_product_name)
+        val description = itemView.findViewById<TextView>(R.id.item_product_description)
+        val price = itemView.findViewById<TextView>(R.id.item_product_price)
 
         fun bind(product: Product) {
             name.text = product.name

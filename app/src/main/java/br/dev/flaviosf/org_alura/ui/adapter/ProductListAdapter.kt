@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.dev.flaviosf.org_alura.R
 import br.dev.flaviosf.org_alura.databinding.ItemProductBinding
 import br.dev.flaviosf.org_alura.model.Product
+import java.text.NumberFormat
+import java.util.*
 
 class ProductListAdapter(products: List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
 
@@ -35,9 +37,10 @@ class ProductListAdapter(products: List<Product>) : RecyclerView.Adapter<Product
     class ProductListViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product) {
+            val currency = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
             binding.itemProductName.text = product.name
             binding.itemProductDescription.text = product.description
-            binding.itemProductPrice.text = product.price.toPlainString()
+            binding.itemProductPrice.text = currency.format(product.price)
 
         }
 

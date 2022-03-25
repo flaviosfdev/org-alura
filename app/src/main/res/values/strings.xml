@@ -4,4 +4,6 @@
     <string name="fruits">Laranja, manga e uva</string>
     <string name="price">19,99</string>
     <string name="action_product_form">ActionProductForm</string>
+    <string name="item_product_image_content_description">Imagem do item produto</string>
+    <string name="product_list_fab_text">Novo produto</string>
 </resources>

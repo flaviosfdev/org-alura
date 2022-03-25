@@ -17,14 +17,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_product" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/product_list_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_action_add"
+        app:icon="@drawable/ic_action_add"
+        android:text="@string/product_list_fab_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/action_product_form" />

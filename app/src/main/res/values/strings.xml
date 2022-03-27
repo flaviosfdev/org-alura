@@ -2,8 +2,17 @@
     <string name="app_name">Orgs</string>
     <string name="fruit_salad">Salada de frutas</string>
     <string name="fruits">Laranja, manga e uva</string>
-    <string name="price">19,99</string>
+    <string name="price">Preço</string>
+    <string name="price_value">19,99</string>
     <string name="action_product_form">ActionProductForm</string>
     <string name="item_product_image_content_description">Imagem do item produto</string>
     <string name="product_list_fab_text">Novo produto</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
+    <string name="save">Salvar</string>
+    <string name="product_image_description">Descrição da Imagem</string>
+    <string name="charge">Carregar</string>
+    <string name="image_form_url_hint">URL da imagem</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

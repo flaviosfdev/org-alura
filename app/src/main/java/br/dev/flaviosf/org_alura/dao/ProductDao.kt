@@ -18,7 +18,7 @@ class ProductDao {
             Product(
                 name = "Cesta de frutas",
                 description = "Laranja, maçã, banana, pêra, morango e uva",
-                price = BigDecimal("19.90")
+                priceValue = BigDecimal("19.90")
             )
         )
     }

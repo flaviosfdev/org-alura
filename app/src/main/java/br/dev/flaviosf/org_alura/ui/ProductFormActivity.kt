@@ -1,18 +1,17 @@
 package br.dev.flaviosf.org_alura.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import br.dev.flaviosf.org_alura.R
 import br.dev.flaviosf.org_alura.dao.ProductDao
 import br.dev.flaviosf.org_alura.databinding.ActivityProductFormBinding
 import br.dev.flaviosf.org_alura.databinding.ImageFormBinding
 import br.dev.flaviosf.org_alura.model.Product
+import br.dev.flaviosf.org_alura.ui.dialog.ImageFormDialog
+import br.dev.flaviosf.org_alura.utils.tryLoad
 import coil.load
 import java.math.BigDecimal
-import kotlinx.coroutines.delay
 
 class ProductFormActivity : AppCompatActivity() {
 
@@ -26,40 +25,14 @@ class ProductFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        title = getString(R.string.register_product)
         setupSaveButton()
 
         binding.productFormImage.setOnClickListener {
-            imageUrl = null
-            val bindingImageForm = ImageFormBinding.inflate(layoutInflater)
-
-            with(bindingImageForm) {
-                imageFormRefreshButton.setOnClickListener {
-                    if (imageFormUrlEdit.text.toString().isBlank().not()) {
-                        imageUrl = imageFormUrlEdit.text.toString()
-                        imageFormPhoto.load(imageUrl) {
-                            // imagem nula
-                            fallback(R.drawable.default_image)
-                            // erro ao carregar imagem
-                            error(R.drawable.default_image)
-                            // enquanto a imagem está sendo carregada
-                            //placeholder(R.drawable.default_image)
-                        }
-                    }
-                    imageFormUrlEdit.text?.clear()
-                }
+            ImageFormDialog(this).showDialog(imageUrl) { url ->
+                imageUrl = url
+                binding.productFormImage.tryLoad(imageUrl)
             }
-
-            AlertDialog.Builder(this)
-                .setView(bindingImageForm.root)
-                .setPositiveButton(getString(R.string.confirm)) { _, _ ->
-                    binding.productFormImage.load(imageUrl) {
-                        fallback(R.drawable.default_image)
-                        error(R.drawable.default_image)
-                    }
-                }
-                .setNegativeButton(getString(R.string.cancel)) { _, _ ->
-                }
-                .show()
         }
     }
 

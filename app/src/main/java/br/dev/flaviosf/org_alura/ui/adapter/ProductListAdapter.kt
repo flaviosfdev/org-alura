@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import br.dev.flaviosf.org_alura.R
 import br.dev.flaviosf.org_alura.databinding.ItemProductBinding
 import br.dev.flaviosf.org_alura.model.Product
+import br.dev.flaviosf.org_alura.utils.FormatCurrency
+import br.dev.flaviosf.org_alura.utils.tryLoad
 import coil.load
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
-class ProductListAdapter(products: List<Product>) :
-    RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
+class ProductListAdapter(
+    products: List<Product>,
+    private val onClick: (product: Product) -> Unit
+) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>() {
 
     private val dataSet = products.toMutableList()
 
@@ -24,7 +28,7 @@ class ProductListAdapter(products: List<Product>) :
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
         val product = dataSet[position]
-        holder.bind(product)
+        holder.bind(product, onClick)
     }
 
     override fun getItemCount(): Int = dataSet.size
@@ -38,24 +42,23 @@ class ProductListAdapter(products: List<Product>) :
     class ProductListViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product) {
-            val currency = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+        fun bind(product: Product, onClick: (product: Product) -> Unit) {
             binding.itemProductName.text = product.name
             binding.itemProductDescription.text = product.description
-            binding.itemProductPrice.text = currency.format(product.priceValue)
+            binding.itemProductPrice.text = FormatCurrency.toBRL(product.priceValue)
             binding.itemProductImage.load(R.drawable.default_image)
 
-            binding.itemProductImage.visibility = when(product.image) {
-                null -> { View.GONE }
+            binding.itemProductImage.visibility = when (product.image) {
+                null -> {
+                    View.GONE
+                }
                 else -> {
-                    binding.itemProductImage.load(product.image) {
-                        fallback(R.drawable.default_image)
-                        error(R.drawable.default_image)
-                    }
+                    binding.itemProductImage.tryLoad(product.image)
                     View.VISIBLE
                 }
             }
 
+            binding.itemProductContainer.setOnClickListener { onClick(product) }
         }
 
 

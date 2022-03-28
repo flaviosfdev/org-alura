@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Orgalura">
         <activity
+            android:name=".ui.ProductDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ProductFormActivity"
             android:exported="false" />
         <activity

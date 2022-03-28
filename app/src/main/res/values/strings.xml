@@ -15,4 +15,5 @@
     <string name="image_form_url_hint">URL da imagem</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="register_product">Cadastrar Produto</string>
 </resources>

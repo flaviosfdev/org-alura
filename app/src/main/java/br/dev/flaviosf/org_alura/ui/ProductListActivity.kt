@@ -2,10 +2,13 @@ package br.dev.flaviosf.org_alura.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import br.dev.flaviosf.org_alura.dao.ProductDao
 import br.dev.flaviosf.org_alura.databinding.ActivityProductListBinding
+import br.dev.flaviosf.org_alura.model.Product
 import br.dev.flaviosf.org_alura.ui.adapter.ProductListAdapter
+import br.dev.flaviosf.org_alura.ui.dialog.ImageFormDialog
 
 class ProductListActivity : AppCompatActivity() {
 
@@ -15,7 +18,13 @@ class ProductListActivity : AppCompatActivity() {
         )
     }
     private val dao = ProductDao()
-    private val adapter: ProductListAdapter by lazy { ProductListAdapter(dao.getProducts()) }
+    private val adapter: ProductListAdapter by lazy { ProductListAdapter(dao.getProducts()) { onClick(it) } }
+
+    private fun onClick(product: Product) {
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        intent.putExtra("product", product)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

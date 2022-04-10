@@ -1,33 +1,28 @@
 package br.dev.flaviosf.org_alura.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.dev.flaviosf.org_alura.R
-import br.dev.flaviosf.org_alura.dao.ProductDao
+import br.dev.flaviosf.org_alura.database.AppDatabase
 import br.dev.flaviosf.org_alura.databinding.ActivityProductFormBinding
-import br.dev.flaviosf.org_alura.databinding.ImageFormBinding
 import br.dev.flaviosf.org_alura.model.Product
 import br.dev.flaviosf.org_alura.ui.dialog.ImageFormDialog
 import br.dev.flaviosf.org_alura.utils.tryLoad
-import coil.load
 import java.math.BigDecimal
 
 class ProductFormActivity : AppCompatActivity() {
 
     private val binding: ActivityProductFormBinding by lazy {
-        ActivityProductFormBinding.inflate(
-            layoutInflater
-        )
+        ActivityProductFormBinding.inflate(layoutInflater)
     }
     private var imageUrl: String? = null
+    private val db: AppDatabase by lazy { AppDatabase.instance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         title = getString(R.string.register_product)
         setupSaveButton()
-
         binding.productFormImage.setOnClickListener {
             ImageFormDialog(this).showDialog(imageUrl) { url ->
                 imageUrl = url
@@ -37,10 +32,10 @@ class ProductFormActivity : AppCompatActivity() {
     }
 
     private fun setupSaveButton() {
-        val dao = ProductDao()
+        val productDao = db.productDao()
         binding.productFormSaveButton.setOnClickListener {
             val newProduct = newProduct()
-            dao.add(newProduct)
+            productDao.saveProduct(product = newProduct)
             finish()
         }
     }

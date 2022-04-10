@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_product" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/product_list_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,8 +25,7 @@
         android:clickable="true"
         android:contentDescription="@string/action_product_form"
         android:focusable="true"
-        android:text="@string/product_list_fab_text"
-        app:icon="@drawable/ic_action_add"
+        app:srcCompat="@drawable/ic_action_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
